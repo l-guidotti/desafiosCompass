@@ -1,23 +1,31 @@
+const readline = require("node:readline");
+const { stdin: input, stdout: output } = require('node:process');
+
 function palindromo (){
-    let escrita = 'a base do teto desaba';
     let escritaSemEspaco = '';
 
-    for(let i=0; i<escrita.length; i++){
-        if(escrita[i] !== ' '){
-            escritaSemEspaco += escrita[i].toLocaleLowerCase();
-        }
-    }
+    const rl = readline.createInterface({ input, output });
 
-    for (let i = 0; i < escritaSemEspaco.length / 2; i++) {
-        if (escritaSemEspaco[i] !== escritaSemEspaco[escritaSemEspaco.length - 1 - i]) {
-            console.log(false);
-            return;
+    rl.question('Digite uma palavra ou frase: ', (escrita) => {
+        escritaFinal = escrita.toLowerCase();
+
+        for(let i=0; i<escritaFinal.length; i++){
+            if(escritaFinal[i] !== ' '){
+                escritaSemEspaco += escritaFinal[i].toLocaleLowerCase();
+            }
         }
-    }
     
-    console.log(true);
+        for (let i = 0; i < escritaSemEspaco.length / 2; i++) {
+            if (escritaSemEspaco[i] !== escritaSemEspaco[escritaSemEspaco.length - 1 - i]) {
+                console.log('Não é palindromo!');
+                rl.close();
+                return;
+            }
+        }
+        
+        console.log('É palindromo!');
+        rl.close();
+    });
 }
 
-palindromo()
-
-//Fiz o algoritmo de forma com que você testa trocando os valores direto na variável
+palindromo();

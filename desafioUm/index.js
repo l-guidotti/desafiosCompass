@@ -1,20 +1,35 @@
-function somaVetor (){
-    let vetor1 = [4, -56, 3, 8];
+const readline = require("node:readline");
+const { stdin: input, stdout: output } = require('node:process');
+
+function somaVetor() {
+    let vetor1 = [];
     let resultado = 0;
-    
-    for (let i=0; i < vetor1.length; i++){
-        if (typeof vetor1[i] !== 'number'){
-        console.log('Valor inválido detectado');
-        return;
+
+    const rl = readline.createInterface({ input, output });
+
+    function coletarNumero(i = 0) {
+        if (i < 4) {
+            rl.question('Escolha um valor: ', (escolha) => {
+                let numero = parseInt(escolha);
+
+                if (isNaN(numero)) {
+                    console.log('Valor inválido detectado.');
+                    coletarNumero(i);
+                } else {
+                    vetor1.push(numero); 
+                    coletarNumero(i + 1);
+                }
+            });
+        } else {
+            for (let i = 0; i < vetor1.length; i++) {
+                resultado += vetor1[i];
+            }
+            console.log(`A soma dos valores é: ${resultado}`);
+            rl.close();
         }
-        resultado += vetor1[i];
     }
 
-    
-    console.log(resultado);
-
+    coletarNumero(0); 
 }
 
 somaVetor();
-
-//Fiz o algoritmo de forma com que você testa trocando os valores direto na variável
