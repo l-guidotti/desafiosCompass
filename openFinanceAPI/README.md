@@ -112,7 +112,7 @@ npx sequelize-cli db:migrate
 ### **/usuarios**
 
 | Método | Rota                               | Ação                                     |
-|--------|------------------------------------|-------------------------------------------|             |
+|--------|------------------------------------|-------------------------------------------|             
 | POST | `/usuarios` | Cadastrar novo usuário |
 | GET | `/usuarios` | Lista todos os usuários cadastrados |
 | GET | `/usuarios/:cpf` | Lista o usuário por CPF |
