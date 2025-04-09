@@ -26,7 +26,8 @@ C:.\openFinanceAPI
 │    ├───20250408121138-create-usuario.js
 │    ├───20250408121224-create-instituicao.js
 │    ├───20250408121314-create-conta.js
-│    └───20250408121328-create-transacao.js
+│    ├───20250408121328-create-transacao.js
+│    └───20250409140110-alter-usuarios-use-cpf-as-pk
 ├───models
 │    ├───conta.js
 │    ├───index.js
@@ -47,11 +48,14 @@ C:.\openFinanceAPI
 └── server.js
 ```
 
+ Obs: O diretório seeders/ está vazio, mas pode ser usado futuramente para povoar o banco com dados iniciais.
+
 ## Tecnologias Utilizadas
 - Node.js
 - Express
 - Sequelize (ORM)
 - PostgreSQL (Banco de dados relacional)
+- Dotenv
 
 ## Instalação
 
@@ -66,32 +70,49 @@ cd seu-repositorio
 npm install
 ```
 
-### 3. Configure o banco de dados
-Edite o arquivo `config/config.js` com as informações do seu banco PostgreSQL:
+### 3. Crie um arquivo .env na raiz do projeto com as seguintes variáveis:
+
+```.env
+DB_USER=seu_usuario
+DB_PASS=sua_senha
+DB_NAME=nome_do_banco
+DB_HOST=localhost
+DB_DIALECT=postgres
+```
+
+### 4. Configure o banco de dados
+Edite o arquivo `config/config.js` com as informações do .env:
 
 ```js
+require('dotenv').config();
+
 module.exports = {
   development: {
-    username: 'seu_usuario',
-    password: 'sua_senha',
-    database: 'nome_do_banco',
-    host: '127.0.0.1',
-    dialect: 'postgres'
+    username: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    dialect: process.env.DB_DIALECT
   }
 };
 ```
 
-### 4. Crie o banco de dados e execute as migrations
+### 5. Crie o banco de dados e execute as migrations
 ```bash
 npx sequelize-cli db:create
 npx sequelize-cli db:migrate
 ```
 
 ## Endpoints Disponíveis
+### **/instituicoes**
 
 | Método | Rota                               | Ação                                     |
 |--------|------------------------------------|-------------------------------------------|
-| POST   | `/instituicoes`                   | Cadastrar nova instituição               |
+| POST   | `/instituicoes`                   | Cadastrar nova instituição  
+### **/usuarios**
+
+| Método | Rota                               | Ação                                     |
+|--------|------------------------------------|-------------------------------------------|             |
 | POST | `/usuarios` | Cadastrar novo usuário |
 | GET | `/usuarios` | Lista todos os usuários cadastrados |
 | GET | `/usuarios/:cpf` | Lista o usuário por CPF |
