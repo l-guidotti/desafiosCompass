@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   class Conta extends Model {
 
     static associate(models) {
-      Conta.belongsTo(models.Usuario, { foreignKey: 'usuarioId' });
+      Conta.belongsTo(models.Usuario, { foreignKey: 'usuarioCpf' });
       Conta.belongsTo(models.Instituicao, { foreignKey: 'instituicaoId ' });
       Conta.hasMany(models.Transacao, { foreignKey: 'contaId' });
     }
@@ -13,7 +13,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   Conta.init({
     saldo: DataTypes.FLOAT,
-    usuarioId: DataTypes.INTEGER,
+    usuarioCpf: {
+      type: DataTypes.STRING,
+      references: {
+        model: 'Usuarios',
+        key: 'cpf'
+      }
+    },
     instituicaoId: DataTypes.INTEGER
   }, {
     sequelize,
