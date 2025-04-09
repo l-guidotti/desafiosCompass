@@ -92,6 +92,11 @@ npx sequelize-cli db:migrate
 | Método | Rota                               | Ação                                     |
 |--------|------------------------------------|-------------------------------------------|
 | POST   | `/instituicoes`                   | Cadastrar nova instituição               |
+| POST | `/usuarios` | Cadastrar novo usuário |
+| GET | `/usuarios` | Lista todos os usuários cadastrados |
+| GET | `/usuarios/:cpf` | Lista o usuário por CPF |
+| PUT | `/usuarios/:cpf` | Edita dados do usuário pelo CPF |
+| DELETE | `/usuarios/:cpf` | Deleta um usuário pelo CPF |
 
 ---
 
