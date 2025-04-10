@@ -19,8 +19,17 @@ module.exports = {
             return res.status(201).json(novaInstituicao);
 
         } catch(err){
-            console.error('Erro ao criar instituição: ', err);
             return res.status(500).json({erro: 'Erro interno do servidor'});
+        }
+    },
+    
+    async listaInstituicao(req, res){
+        try {
+            const contas = await Instituicao.findAll();
+            return res.status(200).json(contas);
+
+        } catch (error) {
+            return res.status(400).json({erro: 'Erro ao buscar instituições'})
         }
     }
 }

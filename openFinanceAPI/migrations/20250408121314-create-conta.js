@@ -12,7 +12,7 @@ module.exports = {
       saldo: {
         type: Sequelize.FLOAT
       },
-      usuarioId: {
+      usuarioCpf: {
         type: Sequelize.INTEGER
       },
       instituicaoId: {
