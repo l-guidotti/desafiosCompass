@@ -37,11 +37,16 @@ C:.\openFinanceAPI
 ├───node_modules
 │    └─── ...
 ├───seeders
-└───src
+├───src
 │    ├───controllers
+│    │    ├───contaController.js
+│    │    ├───instituicaoController.js
+│    │    └───usuarioController.js
 │    ├───database
 │    └───routes
-│
+│         ├───contaController.js
+│         ├───instituicaoController.js
+│         └───usuarioController.js
 ├── .env
 ├── package-lock.json
 ├── package.json
@@ -108,7 +113,8 @@ npx sequelize-cli db:migrate
 
 | Método | Rota                               | Ação                                     |
 |--------|------------------------------------|-------------------------------------------|
-| POST   | `/instituicoes`                   | Cadastrar nova instituição  
+| POST   | `/instituicoes`                   | Cadastrar nova instituição  |
+
 ### **/usuarios**
 
 | Método | Rota                               | Ação                                     |
@@ -118,6 +124,12 @@ npx sequelize-cli db:migrate
 | GET | `/usuarios/:cpf` | Lista o usuário por CPF |
 | PUT | `/usuarios/:cpf` | Edita dados do usuário pelo CPF |
 | DELETE | `/usuarios/:cpf` | Deleta um usuário pelo CPF |
+
+### **/contas**
+
+| Método | Rota                               | Ação                                     |
+|--------|------------------------------------|-------------------------------------------|             
+| POST | `/contas` | Cadastrar nova conta |
 
 ---
 
