@@ -20,15 +20,51 @@ module.exports = {
     },
 
     async listaConta(req, res){
-
+        try {
+            const contas = await Conta.findAll({
+                inlcude: [Usuario, Instituicao]
+            });
+            return res.status(200).json(contas);
+        } catch (error) {
+            return res.status(500).json({erro: 'Erro ao listar contas.'})
+        }
     },
 
     async buscaContaPorId(req, res){
+        try {
+            const { id } = req.params;
+            const conta = await Conta.findByPk(id, {
+                include: [Usuario, Instituicao]
+            });
 
+            if(!conta){
+                return res.status(404).json({erro: 'Conta não encontrada'})
+            }
+
+            return res.status(200).json(conta);
+
+        } catch (error) {
+            return res.status(500).json({erro: 'Erro ao encontrar conta.', detalhe: error.message })
+        }
     },
 
     async deletaConta(req,res){
+        try {
+            const { id } = req.params
+            const conta = await Conta.findByPk(id, {
+                include: [Usuario, Instituicao]
+            });
 
+            if(!conta){
+                return res.status(404).json({erro: 'Erro ao encontrar a conta'});
+            }
+
+            await conta.destroy();
+
+            return res.status(204).send();
+        } catch (error) {
+            return res.status(500).json({erro: 'Erro a deletar a conta'});
+        }
     }
 
 

@@ -44,9 +44,9 @@ C:.\openFinanceAPI
 │    │    └───usuarioController.js
 │    ├───database
 │    └───routes
-│         ├───contaController.js
-│         ├───instituicaoController.js
-│         └───usuarioController.js
+│         ├───contaRoutes.js
+│         ├───instituicaoRoutes.js
+│         └───usuarioRoutes.js
 ├── .env
 ├── package-lock.json
 ├── package.json
