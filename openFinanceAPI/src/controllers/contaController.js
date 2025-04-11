@@ -3,15 +3,20 @@ const { Conta, Usuario, Instituicao } = require('../../models');
 module.exports = {
     async criaConta(req, res){
         try {
-            const { saldo, usuarioCpf, instituicaoId } = req.body;
-            const usuario = await Usuario.findByPk(usuarioCpf);
+            const { cpf } = req.params
+            const { saldo, instituicaoId } = req.body;
+            const usuario = await Usuario.findByPk(cpf);
             const instituicao = await Instituicao.findByPk(instituicaoId);
 
             if(!usuario || !instituicao){
                 return res.status(404).json({erro: 'Usuário e/ou instituição inexistentes'});
             }
 
-            const novaConta = await Conta.create({ saldo, usuarioCpf, instituicaoId });
+            const novaConta = await Conta.create({ 
+                saldo, 
+                usuarioCpf: cpf, 
+                instituicaoId });
+
             return res.status(201).json(novaConta);
 
         } catch (error) {
