@@ -1,5 +1,6 @@
 const { where } = require('sequelize');
-const { Transacao, Conta, Usuario } = require('../../models');
+const { Transacao, Conta, Usuario, Instituicao } = require('../../models');
+const conta = require('../../models/conta');
 
 module.exports = {
     async criaTransacao(req, res){
@@ -49,31 +50,41 @@ module.exports = {
         }
     },
 
-    async saldoUsuario(req, res){
+    async saldoPorInstituicao(req, res){
         try {
             const { cpf } = req.params;
-            const usuario = await Usuario.findByPk( cpf, {
-                include: [Conta]
+            const { instituicao } = req.query;
+            const usuario = await Usuario.findByPk(cpf, {
+                include: [{
+                    model: Conta,
+                    as: 'contas',
+                    include: [{
+                        model: Instituicao,
+                        as: 'instituicao'
+                    }]
+                }]
             });
 
-            if(!usuario){
+            if (!usuario){
                 return res.status(404).json({erro: 'Usuário não encontrado'});
             }
-            
-            const contas = usuario.Conta || usuario.conta;
 
-            if(!contas || contas.length === 0){
-                return res.status(200).json({ saldoTotal: 0 });
-            } 
+            let filtroContas = usuario.contas || [];
 
-            const saldoTotal = usuario.Conta.reduce((total, conta) => {
+            if(instituicao){
+                filtroContas = filtroContas.filter(conta =>
+                    conta.instituicao && conta.instituicao.nome.toLowerCase() === instituicao.toLowerCase()
+                );
+            }
+                
+            const saldoTotal = filtroContas.reduce((total, conta) => {
                 return total + parseFloat(conta.saldo);
             }, 0);
 
-            return res.status(200).json({ cpf: usuario.cpf, saldoTotal });
+            return res.status(200).json({ saldoTotal });
 
         } catch (error) {
-            return res.status(500).json({erro: 'Erro ao buscar saldo', detalhe: error.message });
-        }
+            return res.status(500).json({erro: 'Erro ao buscar saldo por instituição'});
+        };
     }
 };
