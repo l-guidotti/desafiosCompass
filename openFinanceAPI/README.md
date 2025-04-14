@@ -20,8 +20,7 @@ Essa é uma API RESTful que simula o papel de um "Banco Central" no contexto de 
 ```
 C:.\openFinanceAPI
 ├───config
-│    ├───config.js
-│    └───config.json
+│    └───config.js
 ├───migrations
 │    ├───20250408121138-create-usuario.js
 │    ├───20250408121224-create-instituicao.js
@@ -41,11 +40,13 @@ C:.\openFinanceAPI
 │    ├───controllers
 │    │    ├───contaController.js
 │    │    ├───instituicaoController.js
+│    │    ├───transacaoController.js
 │    │    └───usuarioController.js
 │    ├───database
 │    └───routes
 │         ├───contaRoutes.js
 │         ├───instituicaoRoutes.js
+│         ├───transaoRoutes.js
 │         └───usuarioRoutes.js
 ├── .env
 ├── package-lock.json
@@ -66,8 +67,9 @@ C:.\openFinanceAPI
 
 ### 1. Clone o repositório
 ```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
+git clone git@github.com:l-guidotti/desafiosCompass.git
+cd desafiosCompass
+cd openFinanceAPI
 ```
 
 ### 2. Instale as dependências
@@ -129,7 +131,18 @@ npx sequelize-cli db:migrate
 
 | Método | Rota                               | Ação                                     |
 |--------|------------------------------------|-------------------------------------------|             
-| POST | `/contas` | Cadastrar nova conta |
+| POST | `/:cpf/contas` | Criar nova conta |
+| GET | `/contas` | Lista todas as contas |
+| GET | `/contas/:id` | Lista conta pelo id da conta |
+| DELETE | `/contas/:id` | Deleta conta pelo id da conta |
+
+### **/transacoes**
+
+| Método | Rota                               | Ação                                     |
+|--------|------------------------------------|-------------------------------------------|             
+| POST | `/usuarios/:cpf/transacoes` | Criar nova transação |
+| GET | `/usuarios/:cpf/saldo` | Mostra o saldo acumulado das instituições de cada usuário |
+| GET | `/usuarios/:cpf/saldo?instituicao=banco%20santander` | Mostra o  saldo total do usuário naquela insituição |
 
 ---
 
