@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       Conta.belongsTo(models.Instituicao, { foreignKey: 'instituicaoId',
         as: 'instituicao'
        });
-      Conta.hasMany(models.Transacao, { foreignKey: 'contaId' });
+      Conta.hasMany(models.Transacao, { foreignKey: 'contaId', as: 'transacoes' });
     }
 
   }

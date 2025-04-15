@@ -1,4 +1,4 @@
-const { Usuario } = require('../../models');
+const { Usuario, Conta, Transacao, Instituicao } = require('../../models');
 
 module.exports = {
     async criaUsuario(req, res){
@@ -69,6 +69,62 @@ module.exports = {
             return res.status(204).send();
         } catch (error) {
             return res.status(500).json({erro: 'Erro ao deletar usuário'})
+        }
+    },
+
+    async extratoTotal(req, res){
+        try {
+            const { cpf } = req.params;
+            const usuario = await Usuario.findByPk(cpf, {
+                include: {
+                    model: Conta,
+                    as: 'contas',
+                    include: [
+                        {
+                            model: Transacao,
+                            as: 'transacoes',
+                            required: false
+                        },
+                        {
+                            model: Instituicao,
+                            as: 'instituicao'
+                        }
+                    ]
+                }
+            });
+
+            if (!usuario){
+                return res.status(404).json({erro: 'Erro ao encontrar o usuário'});
+            }
+
+            const contas = usuario.contas || [];
+            let transacoes = [];
+
+            contas.forEach(conta => {
+                if(conta.transacoes && conta.transacoes.length > 0){
+                    conta.transacoes.forEach(transacao => {
+                        transacoes.push({
+                            id: transacao.id,
+                            tipo: transacao.tipo,
+                            valor: transacao.valor,
+                            contaId: conta.id,
+                            Instituicao: conta.instituicao?.nome || null,
+                            createdAt: transacao.createdAt
+                        });
+                    });
+                }
+            });
+
+            transacoes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+            return res.status(200).json({
+                cpf: usuario.cpf,
+                nome: usuario.nome,
+                transacoes
+            });
+
+        } catch (error) {
+            return res.status(500).json({ erro: 'Erro ao gerar extrato', detalhe: error.message });
         }
     }
 };
