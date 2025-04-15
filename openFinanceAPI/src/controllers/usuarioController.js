@@ -25,7 +25,7 @@ module.exports = {
     async listaPorCpf(req, res) {
         try {
             const { cpf } = req.params;
-            const usuario = await Usuario.findByPk(cpf);
+            const usuario = await Usuario.findOne({ where: { cpf } } );
 
             if (!usuario) {
                 return res.status(404).json({ erro: 'Usuário não encontrado' });

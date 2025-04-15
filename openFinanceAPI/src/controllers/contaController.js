@@ -39,7 +39,16 @@ module.exports = {
         try {
             const { id } = req.params;
             const conta = await Conta.findByPk(id, {
-                include: [Usuario, Instituicao]
+                include: [
+                    {
+                        model: Usuario,
+                        as: 'usuario'
+                    },
+                    {
+                        model: Instituicao,
+                        as: 'instituicao'
+                    }
+                ]
             });
 
             if(!conta){
