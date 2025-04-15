@@ -75,6 +75,7 @@ module.exports = {
     async extratoTotal(req, res){
         try {
             const { cpf } = req.params;
+            const { instituicao } = req.query;
             const usuario = await Usuario.findByPk(cpf, {
                 include: {
                     model: Conta,
@@ -101,7 +102,10 @@ module.exports = {
             let transacoes = [];
 
             contas.forEach(conta => {
-                if(conta.transacoes && conta.transacoes.length > 0){
+                const nomeInstituicao = conta.instituicao?.nome?.toLowerCase();
+                const filtroValido = !instituicao || (nomeInstituicao === instituicao.toLowerCase());
+
+                if(conta.transacoes && conta.transacoes.length > 0 && filtroValido){
                     conta.transacoes.forEach(transacao => {
                         transacoes.push({
                             id: transacao.id,
