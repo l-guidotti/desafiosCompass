@@ -51,6 +51,7 @@ C:.\openFinanceAPI
 ├── .env
 ├── package-lock.json
 ├── package.json
+├── README.md
 └── server.js
 ```
 
@@ -126,6 +127,8 @@ npx sequelize-cli db:migrate
 | GET | `/usuarios/:cpf` | Lista o usuário por CPF |
 | PUT | `/usuarios/:cpf` | Edita dados do usuário pelo CPF |
 | DELETE | `/usuarios/:cpf` | Deleta um usuário pelo CPF |
+| GET | `/usuarios/:cpf/extrato` | Gera extrato de transferências em todas as instituições |
+| GET | `/usuarios/:cpf/extrato?instituicao=banco%20santander` | Gera extrato de transferências na instituição especificada |
 
 ### **/contas**
 

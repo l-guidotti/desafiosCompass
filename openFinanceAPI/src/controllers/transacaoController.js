@@ -3,34 +3,34 @@ const { Transacao, Conta, Usuario, Instituicao } = require('../../models');
 const conta = require('../../models/conta');
 
 module.exports = {
-    async criaTransacao(req, res){
+    async criaTransacao(req, res) {
         try {
             const { cpf } = req.params;
             const { tipo, valor, contaId } = req.body;
             const usuario = await Usuario.findByPk(cpf);
-           
 
-            if(!usuario){
-                return res.status(404).json({erro: 'Usuário não encontrado'});
+
+            if (!usuario) {
+                return res.status(404).json({ erro: 'Usuário não encontrado' });
             }
 
             const conta = await Conta.findOne({
                 where: { id: contaId, usuarioCpf: cpf }
             });
 
-            if(!conta){
-                return res.status(404).json({erro: 'Conta não encontrada'});
+            if (!conta) {
+                return res.status(404).json({ erro: 'Conta não encontrada' });
             }
 
-            if(tipo !== 'entrada' && tipo !== 'saida'){
-                return res.status(404).json({erro: 'Tipo de transação não aceito'})
+            if (tipo !== 'entrada' && tipo !== 'saida') {
+                return res.status(404).json({ erro: 'Tipo de transação não aceito' })
             }
 
-            if(tipo === 'entrada'){
+            if (tipo === 'entrada') {
                 conta.saldo += parseFloat(valor);
             } else {
-                if(conta.saldo < valor){
-                    return res.status(400).json({erro: 'Saldo insuficiente'});
+                if (conta.saldo < valor) {
+                    return res.status(400).json({ erro: 'Saldo insuficiente' });
                 }
                 conta.saldo -= parseFloat(valor);
             }
@@ -50,7 +50,7 @@ module.exports = {
         }
     },
 
-    async saldoPorInstituicao(req, res){
+    async saldoPorInstituicao(req, res) {
         try {
             const { cpf } = req.params;
             const { instituicao } = req.query;
@@ -65,18 +65,18 @@ module.exports = {
                 }]
             });
 
-            if (!usuario){
-                return res.status(404).json({erro: 'Usuário não encontrado'});
+            if (!usuario) {
+                return res.status(404).json({ erro: 'Usuário não encontrado' });
             }
 
             let filtroContas = usuario.contas || [];
 
-            if(instituicao){
+            if (instituicao) {
                 filtroContas = filtroContas.filter(conta =>
                     conta.instituicao && conta.instituicao.nome.toLowerCase() === instituicao.toLowerCase()
                 );
             }
-                
+
             const saldoTotal = filtroContas.reduce((total, conta) => {
                 return total + parseFloat(conta.saldo);
             }, 0);
@@ -84,7 +84,7 @@ module.exports = {
             return res.status(200).json({ saldoTotal });
 
         } catch (error) {
-            return res.status(500).json({erro: 'Erro ao buscar saldo por instituição'});
+            return res.status(500).json({ erro: 'Erro ao buscar saldo por instituição' });
         };
     }
 };
