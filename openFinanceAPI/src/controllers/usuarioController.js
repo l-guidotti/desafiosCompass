@@ -32,7 +32,7 @@ module.exports = {
             return res.status(200).json(usuarios);
 
         } catch (error) {
-            return res.status(500).json({ erro: 'Erro ao buscar o usuário' });
+            return res.status(500).json({ erro: 'Erro ao buscar o usuário', detalhe: error.message });
         }
     },
 

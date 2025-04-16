@@ -43,11 +43,13 @@ C:.\openFinanceAPI
 │    │    ├───transacaoController.js
 │    │    └───usuarioController.js
 │    ├───database
-│    └───routes
-│         ├───contaRoutes.js
-│         ├───instituicaoRoutes.js
-│         ├───transaoRoutes.js
-│         └───usuarioRoutes.js
+│    ├───routes
+│    │    ├───contaRoutes.js
+│    │    ├───instituicaoRoutes.js
+│    │    ├───transaoRoutes.js
+│    │    └───usuarioRoutes.js
+│    └───utils
+│         └───geradorCpf.js
 ├── .env
 ├── package-lock.json
 ├── package.json
@@ -63,6 +65,12 @@ C:.\openFinanceAPI
 - Sequelize (ORM)
 - PostgreSQL (Banco de dados relacional)
 - Dotenv
+- cpf-cnpj-validator (validação de CPF)
+
+## ⚠️ Pré-requisitos
+- Node.js instalado
+- PostgreSQL instalado e rodando
+- Ferramenta de requisição HTTP como Insomnia ou Postman
 
 ## Instalação
 
@@ -77,6 +85,7 @@ cd openFinanceAPI
 ```bash
 npm install
 ```
+** Isso inclui a biblioteca cpf-cpnj-validator, usada para validar CPFs
 
 ### 3. Crie um arquivo .env na raiz do projeto com as seguintes variáveis:
 

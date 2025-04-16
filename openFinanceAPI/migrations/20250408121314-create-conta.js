@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.FLOAT
       },
       usuarioCpf: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       instituicaoId: {
         type: Sequelize.INTEGER
