@@ -25,8 +25,7 @@ C:.\openFinanceAPI
 │    ├───20250408121138-create-usuario.js
 │    ├───20250408121224-create-instituicao.js
 │    ├───20250408121314-create-conta.js
-│    ├───20250408121328-create-transacao.js
-│    └───20250409140110-alter-usuarios-use-cpf-as-pk
+│    └───20250408121328-create-transacao.js
 ├───models
 │    ├───conta.js
 │    ├───index.js
@@ -74,6 +73,8 @@ C:.\openFinanceAPI
 
 ## Instalação
 
+## Rodando localmente (sem Docker)
+
 ### 1. Clone o repositório
 ```bash
 git clone git@github.com:l-guidotti/desafiosCompass.git
@@ -85,9 +86,9 @@ cd openFinanceAPI
 ```bash
 npm install
 ```
-** Isso inclui a biblioteca cpf-cpnj-validator, usada para validar CPFs
+** Isso inclui a biblioteca `cpf-cnpj-validator`, usada para validar CPFs
 
-### 3. Crie um arquivo .env na raiz do projeto com as seguintes variáveis:
+### 3. Crie (ou edite, caso já criado) um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
 ```.env
 DB_USER=seu_usuario
@@ -118,6 +119,11 @@ module.exports = {
 ```bash
 npx sequelize-cli db:create
 npx sequelize-cli db:migrate
+```
+
+### 6. Inicie o servidor:
+```bash
+node .\server.js
 ```
 
 ## Endpoints Disponíveis
