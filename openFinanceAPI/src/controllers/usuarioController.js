@@ -1,9 +1,23 @@
 const { Usuario, Conta, Transacao, Instituicao } = require('../../models');
+const { cpf: cpfValidator } = require('cpf-cnpj-validator');
 
 module.exports = {
     async criaUsuario(req, res) {
         try {
             const { cpf, nome, email } = req.body;
+
+            if(!cpfValidator.isValid(cpf)){
+                return res.status(400).json({erro: 'CPF inválido'});
+            }
+
+            const cpfLimpo = cpf.replace(/\D/g, '');
+
+            const usuarioExistente = await Usuario.findByPk(cpfLimpo);
+
+            if(usuarioExistente){
+                return res.status(409).json({erro: 'Esse CPF já está cadastrado'});
+            }
+
             const novoUsuario = await Usuario.create({ cpf, nome, email });
             return res.status(201).json(novoUsuario);
 
