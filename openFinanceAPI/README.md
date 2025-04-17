@@ -198,8 +198,7 @@ node .\server.js
 - Clique na aba Body
 - Selecione a opção JSON
 - Insira o JSON com os dados necessários. Exemplo para cadastrar um usuário:
-```
-json
+```json
 {
   "cpf": "13677750512",
   "nome": "Lucas Guidotti",
@@ -211,8 +210,7 @@ json
 Você pode gerar um CPF válido para testes de duas formas:
 - Usando o Gerador de CPF da 4Devs: https://www.4devs.com.br/gerador_de_cpf
 - Ou usando o script interno `geradorCpf.js` localizado em `src/utils/geradorCpf.js`, executando ele assim:
-```
-bash
+```bash
 node src/utils/geradorCpf.js
 ```
 
@@ -225,8 +223,7 @@ Aqui vão alguns exemplos úteis:
 
 - Criar uma instituição
 POST http://localhost:3001/instituicoes
-```
-json
+```json
 {
   "nome": "Banco Inter"
 }
@@ -234,8 +231,7 @@ json
 
 - Criar uma conta
 POST http://localhost:3001/12345678901/contas
-```
-json
+```json
 {
 	"saldo": "1000",
 	"instituicaoId": 2
@@ -244,8 +240,7 @@ json
 
 - Criar uma transação
 POST http://localhost:3000/usuarios/12345678901/transacoes
-```
-json
+```json
 {
 	"tipo": "entrada",
 	"valor": "500.50",
