@@ -75,13 +75,23 @@ module.exports = {
                 filtroContas = filtroContas.filter(conta =>
                     conta.instituicao && conta.instituicao.nome.toLowerCase() === instituicao.toLowerCase()
                 );
-            }
+            } 
+            
+            const resultado = filtroContas.map(conta => ({
+                nomeInstituicao: conta.instituicao?.nome,
+                saldo: parseFloat(conta.saldo)
+            }));
 
             const saldoTotal = filtroContas.reduce((total, conta) => {
                 return total + parseFloat(conta.saldo);
             }, 0);
 
-            return res.status(200).json({ saldoTotal });
+            return res.status(200).json({ saldoTotal,
+                usuario: usuario.nome,
+                cpf: usuario.cpf,
+                instituicao: resultado
+             });
+            
 
         } catch (error) {
             return res.status(500).json({ erro: 'Erro ao buscar saldo por instituição' });
