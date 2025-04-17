@@ -10,6 +10,7 @@
 - [Pré-requisitos](#️-pré-requisitos)
 - [Instalação](#instalação)
 - [Endpoints Disponíveis](#endpoints-disponíveis)
+- [Teste com Insomnia](#testando-os-endpoints-no-insomnia)
 - [Contribuição](#contribuição)
 - [Desenvolvedor](#desenvolvedor)
 
@@ -200,7 +201,7 @@ node .\server.js
 ```
 json
 {
-  "cpf": "12345678901",
+  "cpf": "13677750512",
   "nome": "Lucas Guidotti",
   "email": "lucas@email.com"
 }
@@ -242,6 +243,7 @@ json
 	"contaId": 1
 }
 ```
+---
 
 ## Contribuição
 Sinta-se à vontade para enviar PRs ou abrir issues com sugestões de melhorias. Vamos construir algo massa juntos!
