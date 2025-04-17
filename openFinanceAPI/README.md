@@ -146,12 +146,6 @@ node .\server.js
 ```
 
 ## Endpoints Disponíveis
-### **/instituicoes**
-
-| Método | Rota                               | Ação                                     |
-|--------|------------------------------------|-------------------------------------------|
-| POST   | `/instituicoes`                   | Cadastrar nova instituição  |
-
 ### **/usuarios**
 
 | Método | Rota                               | Ação                                     |
@@ -163,6 +157,12 @@ node .\server.js
 | DELETE | `/usuarios/:cpf` | Deleta um usuário pelo CPF |
 | GET | `/usuarios/:cpf/extrato` | Gera extrato de transferências em todas as instituições |
 | GET | `/usuarios/:cpf/extrato?instituicao=banco%20santander` | Gera extrato de transferências na instituição especificada |
+
+### **/instituicoes**
+
+| Método | Rota                               | Ação                                     |
+|--------|------------------------------------|-------------------------------------------|
+| POST   | `/instituicoes`                   | Cadastrar nova instituição  |
 
 ### **/contas**
 
@@ -185,7 +185,63 @@ node .\server.js
 
 ## Testando os endpoints no insomnia
 
+### 1. Crie uma nova requisição
+- Abra o Insomnia
+- Clique em "+"
+- Clique em "New Request" ou "Nova Requisição"
+- Dê um nome (ex: Cadastrar Usuário)
+- Selecione o método HTTP (ex: POST)
+- Insira a URL (ex: http://localhost:3001/usuarios)
 
+### 2. Configure o corpo da requisição
+- Clique na aba Body
+- Selecione a opção JSON
+- Insira o JSON com os dados necessários. Exemplo para cadastrar um usuário:
+```
+json
+{
+  "cpf": "12345678901",
+  "nome": "Lucas Guidotti",
+  "email": "lucas@email.com"
+}
+```
+
+### 3. Envie a requisição
+- Clique em Send
+- Verifique a resposta na aba de resposta do Insomnia
+
+### 4. Faça o mesmo para os demais endpoints
+Aqui vão alguns exemplos úteis:
+
+- Criar uma instituição
+POST http://localhost:3001/instituicoes
+```
+json
+{
+  "nome": "Banco Inter"
+}
+```
+
+- Criar uma conta
+POST http://localhost:3001/12345678901/contas
+```
+json
+{
+	"saldo": "1000",
+	"instituicaoId": 2
+}
+```
+
+- Criar uma transação
+POST http://localhost:3000/usuarios/12345678901/transacoes
+```
+json
+{
+	"tipo": "entrada",
+	"valor": "500.50",
+	"contaId": 1
+}
+```
 
 ## Contribuição
 Sinta-se à vontade para enviar PRs ou abrir issues com sugestões de melhorias. Vamos construir algo massa juntos!
