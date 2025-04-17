@@ -206,6 +206,15 @@ json
   "email": "lucas@email.com"
 }
 ```
+⚠️ Para realizar requisição de cadastro de usuários, é obrigatório utilizar um CPF válido.⚠️
+
+Você pode gerar um CPF válido para testes de duas formas:
+- Usando o Gerador de CPF da 4Devs: https://www.4devs.com.br/gerador_de_cpf
+- Ou usando o script interno `geradorCpf.js` localizado em `src/utils/geradorCpf.js`, executando ele assim:
+```
+bash
+node src/utils/geradorCpf.js
+```
 
 ### 3. Envie a requisição
 - Clique em Send
