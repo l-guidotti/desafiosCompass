@@ -1,5 +1,19 @@
 # API Open Finance - Banco Central Simulado
 
+## Índice
+
+- [Descrição](#descrição)
+- [Funcionalidades](#funcionalidades)
+- [Entidades Principais](#entidades-principais)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Pré-requisitos](#️-pré-requisitos)
+- [Instalação](#instalação)
+- [Endpoints Disponíveis](#endpoints-disponíveis)
+- [Contribuição](#contribuição)
+- [Desenvolvedor](#desenvolvedor)
+
+
 ## Descrição
 Essa é uma API RESTful que simula o papel de um "Banco Central" no contexto de Open Finance. O objetivo é consolidar informações bancárias de usuários, permitindo o acesso a saldos e extratos de diferentes instituições financeiras.
 
@@ -45,7 +59,7 @@ C:.\openFinanceAPI
 │    ├───routes
 │    │    ├───contaRoutes.js
 │    │    ├───instituicaoRoutes.js
-│    │    ├───transaoRoutes.js
+│    │    ├───transacaoRoutes.js
 │    │    └───usuarioRoutes.js
 │    └───utils
 │         └───geradorCpf.js
@@ -88,7 +102,12 @@ npm install
 ```
 ** Isso inclui a biblioteca `cpf-cnpj-validator`, usada para validar CPFs
 
-### 3. Crie (ou edite, caso já criado) um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+### 3. Abra o projeto na sua IDE:
+```bash
+code .
+```
+
+### 4. Configure o arquivo `.env` na raiz do projeto:
 
 ```.env
 DB_USER=seu_usuario
@@ -98,7 +117,7 @@ DB_HOST=localhost
 DB_DIALECT=postgres
 ```
 
-### 4. Configure o banco de dados
+### 5. Configure o banco de dados
 Edite o arquivo `config/config.js` com as informações do .env:
 
 ```js
@@ -115,13 +134,13 @@ module.exports = {
 };
 ```
 
-### 5. Crie o banco de dados e execute as migrations
+### 6. Crie o banco de dados e execute as migrations
 ```bash
 npx sequelize-cli db:create
 npx sequelize-cli db:migrate
 ```
 
-### 6. Inicie o servidor:
+### 7. Inicie o servidor:
 ```bash
 node .\server.js
 ```
@@ -160,9 +179,13 @@ node .\server.js
 |--------|------------------------------------|-------------------------------------------|             
 | POST | `/usuarios/:cpf/transacoes` | Criar nova transação |
 | GET | `/usuarios/:cpf/saldo` | Mostra o saldo acumulado das instituições de cada usuário |
-| GET | `/usuarios/:cpf/saldo?instituicao=banco%20santander` | Mostra o  saldo total do usuário naquela insituição |
+| GET | `/usuarios/:cpf/saldo?instituicao=banco%20santander` | Mostra o  saldo total do usuário naquela instituição |
 
 ---
+
+## Testando os endpoints no insomnia
+
+
 
 ## Contribuição
 Sinta-se à vontade para enviar PRs ou abrir issues com sugestões de melhorias. Vamos construir algo massa juntos!
