@@ -94,7 +94,7 @@ module.exports = {
             
 
         } catch (error) {
-            return res.status(500).json({ erro: 'Erro ao buscar saldo por instituição' });
+            return res.status(500).json({ erro: 'Erro ao buscar saldo por instituição', detalhe: error.message });
         };
     }
 };

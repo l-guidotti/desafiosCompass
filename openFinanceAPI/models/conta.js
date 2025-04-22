@@ -22,13 +22,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       references: {
         model: 'Usuarios',
+        as: 'usuario',
         key: 'cpf'
       }
     },
     instituicaoId: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Conta',
+    modelName: 'Conta'
   });
   return Conta;
 };

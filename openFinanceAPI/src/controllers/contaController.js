@@ -66,7 +66,13 @@ module.exports = {
         try {
             const { id } = req.params
             const conta = await Conta.findByPk(id, {
-                include: [Usuario, Instituicao]
+                include: [{
+                    model: Usuario,
+                    as: 'usuario'
+                },
+                {   model: Instituicao,
+                    as: 'instituicao'
+                }]
             });
 
             if(!conta){
@@ -77,7 +83,7 @@ module.exports = {
 
             return res.status(204).send();
         } catch (error) {
-            return res.status(500).json({erro: 'Erro a deletar a conta'});
+            return res.status(500).json({erro: 'Erro a deletar a conta', detalhe: error.message});
         }
     }
 
