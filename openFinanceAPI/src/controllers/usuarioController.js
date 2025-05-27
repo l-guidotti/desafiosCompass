@@ -22,7 +22,7 @@ module.exports = {
             return res.status(201).json(novoUsuario);
 
         } catch (error) {
-            return res.status(500).json({ erro: 'Erro ao criar usuário' });
+            return res.status(500).json({ erro: 'Erro ao criar usuário'  });
         }
     },
 
