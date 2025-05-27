@@ -65,6 +65,7 @@ C:.\openFinanceAPI
 │    └───utils
 │         └───geradorCpf.js
 ├── .env
+├── .gitignore
 ├── package-lock.json
 ├── package.json
 ├── README.md
